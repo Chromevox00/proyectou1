@@ -23,13 +23,13 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install -r app/requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Run syntax test
-        run: python -m py_compile app/app.py
+        run: python -m py_compile app.py
 
       - name: Build Docker image
-        run: docker build -f docker/Dockerfile -t devops-app .
+        run: docker build -f Dockerfile -t devops-app .
 
   deploy-sim:
     needs: build
