@@ -1,0 +1,6 @@
+# Materia: Automatización de Infraestructura Digital II
+# Alumna: Samantha Carolina Ramírez Montiel
+# Profesor: Froylan Alonso Pérez Alanís
+
+Flask==2.3.3
+Werkzeug==2.3.7

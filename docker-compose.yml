@@ -1,0 +1,15 @@
+# Materia: Automatización de Infraestructura Digital II
+# Alumna: Samantha Carolina Ramírez Montiel
+# Profesor: Froylan Alonso Pérez Alanís
+
+version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      -FLASK_ENV=development
+    

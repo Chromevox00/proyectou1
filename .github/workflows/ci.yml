@@ -1,0 +1,43 @@
+# Materia: Automatización de Infraestructura Digital II
+# Alumna: Samantha Carolina Ramírez Montiel
+# Profesor: Froylan Alonso Pérez Alanís
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r app/requirements.txt
+
+      - name: Run syntax test
+        run: python -m py_compile app/app.py
+
+      - name: Build Docker image
+        run: docker build -f docker/Dockerfile -t devops-app .
+
+  deploy-sim:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate deploy
+        run: |
+          docker run -d -p 5000:5000 --name sim devops-app
+          sleep 5
+          curl -f http://localhost:5000 || exit 1
+          docker stop sim
